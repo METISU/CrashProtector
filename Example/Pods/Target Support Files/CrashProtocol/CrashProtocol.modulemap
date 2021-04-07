@@ -1,0 +1,6 @@
+framework module CrashProtocol {
+  umbrella header "CrashProtocol-umbrella.h"
+
+  export *
+  module * { export * }
+}

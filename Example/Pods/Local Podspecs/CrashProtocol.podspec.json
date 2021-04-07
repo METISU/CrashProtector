@@ -1,0 +1,22 @@
+{
+  "name": "CrashProtocol",
+  "version": "0.1.0",
+  "summary": "A short description of CrashProtocol.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/erchuan/CrashProtocol",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "erchuan": "jie.zheng@tuya.com"
+  },
+  "source": {
+    "git": "https://github.com/erchuan/CrashProtocol.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "9.0"
+  },
+  "source_files": "CrashProtocol/Classes/**/*"
+}

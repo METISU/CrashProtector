@@ -1,0 +1,13 @@
+use_frameworks!
+
+platform :ios, '9.0'
+
+target 'CrashProtocol_Example' do
+  pod 'CrashProtocol', :path => '../'
+
+  target 'CrashProtocol_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end

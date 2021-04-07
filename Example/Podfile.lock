@@ -1,0 +1,16 @@
+PODS:
+  - CrashProtocol (0.1.0)
+
+DEPENDENCIES:
+  - CrashProtocol (from `../`)
+
+EXTERNAL SOURCES:
+  CrashProtocol:
+    :path: "../"
+
+SPEC CHECKSUMS:
+  CrashProtocol: ac0c828e236db4a523806f098d3ed3196bdbf0cf
+
+PODFILE CHECKSUM: 827ebde371946b6ec7f6efadaf24140276f4f10a
+
+COCOAPODS: 1.9.3
