@@ -18,6 +18,7 @@ typedef enum : NSInteger {
     RemoveObjectInRangeCrashType,
     NSPlaceholderDictionaryCrashType,
     SetObjectForKeyedSubscriptType,
+    NSStringCrashType
 } CrashType;
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -40,7 +41,8 @@ typedef enum : NSInteger {
                        @(RemoveOutOfRangeInMutableArrayCrashType),
                        @(RemoveObjectInRangeCrashType),
                        @(NSPlaceholderDictionaryCrashType),
-                       @(SetObjectForKeyedSubscriptType)];
+                       @(SetObjectForKeyedSubscriptType),
+                       @(NSStringCrashType)];
     self.typeDic = @{@(InsertNilInArrayCrashType) : @"Insert Nil In Array",
                      @(OutOfRangeInArrayCrashType):@"index 2 beyond bounds [0 .. 0]",
                      @(OutOfRangesInArrayCrashType):@"index 2 in index set beyond bounds [0 .. 0]",
@@ -49,7 +51,8 @@ typedef enum : NSInteger {
                      @(RemoveOutOfRangeInMutableArrayCrashType):@"range {2, 1} extends beyond bounds for empty array",
                      @(RemoveObjectInRangeCrashType):@"extends beyond bounds for empty array",
                      @(NSPlaceholderDictionaryCrashType):@"[__NSPlaceholderDictionary initWithObjects:forKeys:count:]",
-                     @(SetObjectForKeyedSubscriptType):@"key cannot be nil"};
+                     @(SetObjectForKeyedSubscriptType):@"key cannot be nil",
+                     @(NSStringCrashType):@"NSStringCrashType"};
     [self.view addSubview:self.demoTableView];
 }
 
@@ -154,6 +157,12 @@ typedef enum : NSInteger {
             [mutableDic removeObjectForKey:nilStr];
             
             [mutableDic removeObjectsForKeys:@[nilStr]];
+        }
+            break;
+        case NSStringCrashType:
+        {
+            NSString *str = @"abcdef"; NSString *nilStr = nil;
+            NSLog(@"%c %@ %@ %@ %@ %@", [str characterAtIndex:2], [str substringToIndex:2], [str substringFromIndex:2], [str substringWithRange:NSMakeRange(2, 2)], [str stringByReplacingOccurrencesOfString:nilStr withString:nilStr],[str stringByReplacingCharactersInRange:NSMakeRange(2, 2) withString:nilStr]);
         }
             break;
         default:
