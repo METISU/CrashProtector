@@ -13,7 +13,9 @@ typedef enum : NSInteger {
     OutOfRangeInArrayCrashType,
     OutOfRangesInArrayCrashType,
     ObjectAtIndexedSubscriptCrashType,
-    ObjectCannotBeNilInArrayCrashType
+    ObjectCannotBeNilInArrayCrashType,
+    RemoveOutOfRangeInMutableArrayCrashType,
+    RemoveObjectInRangeCrashType
 } CrashType;
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -28,9 +30,33 @@ typedef enum : NSInteger {
 {
     [super viewDidLoad];
 	
-    self.typeArray = @[@(InsertNilInArrayCrashType), @(OutOfRangeInArrayCrashType), @(OutOfRangesInArrayCrashType), @(ObjectAtIndexedSubscriptCrashType), @(ObjectCannotBeNilInArrayCrashType)];
-    self.typeDic = @{@(InsertNilInArrayCrashType) : @"Insert Nil In Array", @(OutOfRangeInArrayCrashType):@"index 2 beyond bounds [0 .. 0]", @(OutOfRangesInArrayCrashType):@"index 2 in index set beyond bounds [0 .. 0]", @(ObjectAtIndexedSubscriptCrashType):@"objectAtIndexedSubscript", @(ObjectCannotBeNilInArrayCrashType):@"object cannot be nil"};
+    self.typeArray = @[@(InsertNilInArrayCrashType),
+                       @(OutOfRangeInArrayCrashType),
+                       @(OutOfRangesInArrayCrashType),
+                       @(ObjectAtIndexedSubscriptCrashType),
+                       @(ObjectCannotBeNilInArrayCrashType),
+                       @(RemoveOutOfRangeInMutableArrayCrashType),
+                       @(RemoveObjectInRangeCrashType)];
+    self.typeDic = @{@(InsertNilInArrayCrashType) : @"Insert Nil In Array",
+                     @(OutOfRangeInArrayCrashType):@"index 2 beyond bounds [0 .. 0]",
+                     @(OutOfRangesInArrayCrashType):@"index 2 in index set beyond bounds [0 .. 0]",
+                     @(ObjectAtIndexedSubscriptCrashType):@"objectAtIndexedSubscript",
+                     @(ObjectCannotBeNilInArrayCrashType):@"object cannot be nil",
+                     @(RemoveOutOfRangeInMutableArrayCrashType):@"range {2, 1} extends beyond bounds for empty array",
+                     @(RemoveObjectInRangeCrashType):@"extends beyond bounds for empty array"};
     [self.view addSubview:self.demoTableView];
+    
+    NSMutableArray *mArray = [@[@1] mutableCopy];
+    __unsafe_unretained id *objects = NULL;
+     
+    NSUInteger count = [mArray count];
+     
+    [mArray getObjects:objects range:NSMakeRange(1, 1)];
+     
+//    for (int i = 0; i < count; i++) {
+//        NSLog(@"object at index %d: %@", i, objects[i]);
+//    }
+    free(objects);
 }
 
 - (UITableView *)demoTableView {
@@ -70,7 +96,10 @@ typedef enum : NSInteger {
         case OutOfRangeInArrayCrashType:
         {
             NSArray *array = @[@1];
-            NSLog(@"%@", array[2]);
+            NSMutableArray *mutableArray = [array mutableCopy];
+            NSString *nilStr = nil;
+            mutableArray[0] = nilStr;
+            NSLog(@"%@ %@", array[2], [mutableArray objectAtIndex:2]);
         }
             break;
         case OutOfRangesInArrayCrashType:
@@ -96,6 +125,20 @@ typedef enum : NSInteger {
             NSMutableArray *array = NSMutableArray.new;
             NSString *nilStr = nil;
             [array addObject:nilStr];
+            NSLog(@"%@", array);
+        }
+            break;
+        case RemoveOutOfRangeInMutableArrayCrashType:
+        {
+            NSMutableArray *array = NSMutableArray.new;
+            [array removeObjectAtIndex:2];
+            NSLog(@"%@", array);
+        }
+            break;
+        case RemoveObjectInRangeCrashType:
+        {
+            NSMutableArray *array = NSMutableArray.new;
+            [array removeObject:@2 inRange:NSMakeRange(2, 2)];
             NSLog(@"%@", array);
         }
             break;
