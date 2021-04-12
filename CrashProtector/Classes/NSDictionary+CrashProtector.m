@@ -19,6 +19,7 @@
     });
 }
 
+#pragma mark - __NSPlaceholderDictionary
 - (instancetype)crashProtector_initWithObjects:(id  _Nonnull const [])objects forKeys:(id<NSCopying>  _Nonnull const [])keys count:(NSUInteger)cnt {
     id instance = nil;
     

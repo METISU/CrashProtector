@@ -16,7 +16,8 @@ typedef enum : NSInteger {
     ObjectCannotBeNilInArrayCrashType,
     RemoveOutOfRangeInMutableArrayCrashType,
     RemoveObjectInRangeCrashType,
-    NSPlaceholderDictionaryCrashType
+    NSPlaceholderDictionaryCrashType,
+    SetObjectForKeyedSubscriptType,
 } CrashType;
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -38,7 +39,8 @@ typedef enum : NSInteger {
                        @(ObjectCannotBeNilInArrayCrashType),
                        @(RemoveOutOfRangeInMutableArrayCrashType),
                        @(RemoveObjectInRangeCrashType),
-                       @(NSPlaceholderDictionaryCrashType)];
+                       @(NSPlaceholderDictionaryCrashType),
+                       @(SetObjectForKeyedSubscriptType)];
     self.typeDic = @{@(InsertNilInArrayCrashType) : @"Insert Nil In Array",
                      @(OutOfRangeInArrayCrashType):@"index 2 beyond bounds [0 .. 0]",
                      @(OutOfRangesInArrayCrashType):@"index 2 in index set beyond bounds [0 .. 0]",
@@ -46,7 +48,8 @@ typedef enum : NSInteger {
                      @(ObjectCannotBeNilInArrayCrashType):@"object cannot be nil",
                      @(RemoveOutOfRangeInMutableArrayCrashType):@"range {2, 1} extends beyond bounds for empty array",
                      @(RemoveObjectInRangeCrashType):@"extends beyond bounds for empty array",
-                     @(NSPlaceholderDictionaryCrashType):@"[__NSPlaceholderDictionary initWithObjects:forKeys:count:]"};
+                     @(NSPlaceholderDictionaryCrashType):@"[__NSPlaceholderDictionary initWithObjects:forKeys:count:]",
+                     @(SetObjectForKeyedSubscriptType):@"key cannot be nil"};
     [self.view addSubview:self.demoTableView];
 }
 
@@ -97,9 +100,9 @@ typedef enum : NSInteger {
         {
             NSArray *array = @[@1];
             NSMutableIndexSet *set = [NSMutableIndexSet indexSetWithIndex:2];
-            [set addIndex:2];
+            [set addIndex:0];
             [array objectsAtIndexes:[set copy]];
-            NSLog(@"%@", array);
+            NSLog(@"%@", [array objectsAtIndexes:[set copy]]);
         }
             break;
         case ObjectAtIndexedSubscriptCrashType:
@@ -138,6 +141,19 @@ typedef enum : NSInteger {
             NSString *nilStr = nil;
             NSDictionary *dic = @{@2:nilStr, @2:@2};
             NSLog(@"%@", dic);
+        }
+            break;
+        case SetObjectForKeyedSubscriptType:
+        {
+            NSString *nilStr = nil;
+            NSMutableDictionary *mutableDic = [NSMutableDictionary dictionaryWithObject:nilStr forKey:nilStr];
+            mutableDic[nilStr] = nil;
+            
+            [mutableDic setObject:@2 forKey:nilStr];
+            
+            [mutableDic removeObjectForKey:nilStr];
+            
+            [mutableDic removeObjectsForKeys:@[nilStr]];
         }
             break;
         default:

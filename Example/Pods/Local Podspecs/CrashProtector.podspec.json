@@ -3,16 +3,16 @@
   "version": "0.1.0",
   "summary": "A short description of CrashProtector.",
   "description": "TODO: Add long description of the pod here.",
-  "homepage": "https://github.com/erchuan/CrashProtector",
+  "homepage": "https://github.com/METISU/CrashProtector",
   "license": {
     "type": "MIT",
     "file": "LICENSE"
   },
   "authors": {
-    "erchuan": "jie.zheng@tuya.com"
+    "METISU": "METISU"
   },
   "source": {
-    "git": "https://github.com/erchuan/CrashProtector.git",
+    "git": "https://github.com/METISU/CrashProtector.git",
     "tag": "0.1.0"
   },
   "platforms": {

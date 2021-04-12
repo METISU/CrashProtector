@@ -106,7 +106,7 @@
         NSMutableIndexSet *newIndexes = NSMutableIndexSet.new;
         
         [indexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL * _Nonnull stop) {
-            if (idx < self.count) {
+            if (idx >= 0 && idx < self.count) {
                 [newIndexes addIndex:idx];
             }
         }];

@@ -19,7 +19,7 @@ EXTERNAL SOURCES:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CrashProtector: ae5f23417ec77a1449b5eb3856cc0c462d97a8f2
+  CrashProtector: 2db9a230b1f86483a1c725556facbf6f5e657599
   FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
 
 PODFILE CHECKSUM: 8a6b0b965fcb6ba5ee3dffb37a1c577f2427cab2
