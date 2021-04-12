@@ -15,7 +15,8 @@ typedef enum : NSInteger {
     ObjectAtIndexedSubscriptCrashType,
     ObjectCannotBeNilInArrayCrashType,
     RemoveOutOfRangeInMutableArrayCrashType,
-    RemoveObjectInRangeCrashType
+    RemoveObjectInRangeCrashType,
+    NSPlaceholderDictionaryCrashType
 } CrashType;
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -36,27 +37,17 @@ typedef enum : NSInteger {
                        @(ObjectAtIndexedSubscriptCrashType),
                        @(ObjectCannotBeNilInArrayCrashType),
                        @(RemoveOutOfRangeInMutableArrayCrashType),
-                       @(RemoveObjectInRangeCrashType)];
+                       @(RemoveObjectInRangeCrashType),
+                       @(NSPlaceholderDictionaryCrashType)];
     self.typeDic = @{@(InsertNilInArrayCrashType) : @"Insert Nil In Array",
                      @(OutOfRangeInArrayCrashType):@"index 2 beyond bounds [0 .. 0]",
                      @(OutOfRangesInArrayCrashType):@"index 2 in index set beyond bounds [0 .. 0]",
                      @(ObjectAtIndexedSubscriptCrashType):@"objectAtIndexedSubscript",
                      @(ObjectCannotBeNilInArrayCrashType):@"object cannot be nil",
                      @(RemoveOutOfRangeInMutableArrayCrashType):@"range {2, 1} extends beyond bounds for empty array",
-                     @(RemoveObjectInRangeCrashType):@"extends beyond bounds for empty array"};
+                     @(RemoveObjectInRangeCrashType):@"extends beyond bounds for empty array",
+                     @(NSPlaceholderDictionaryCrashType):@"[__NSPlaceholderDictionary initWithObjects:forKeys:count:]"};
     [self.view addSubview:self.demoTableView];
-    
-    NSMutableArray *mArray = [@[@1] mutableCopy];
-    __unsafe_unretained id *objects = NULL;
-     
-    NSUInteger count = [mArray count];
-     
-    [mArray getObjects:objects range:NSMakeRange(1, 1)];
-     
-//    for (int i = 0; i < count; i++) {
-//        NSLog(@"object at index %d: %@", i, objects[i]);
-//    }
-    free(objects);
 }
 
 - (UITableView *)demoTableView {
@@ -140,6 +131,13 @@ typedef enum : NSInteger {
             NSMutableArray *array = NSMutableArray.new;
             [array removeObject:@2 inRange:NSMakeRange(2, 2)];
             NSLog(@"%@", array);
+        }
+            break;
+        case NSPlaceholderDictionaryCrashType:
+        {
+            NSString *nilStr = nil;
+            NSDictionary *dic = @{@2:nilStr, @2:@2};
+            NSLog(@"%@", dic);
         }
             break;
         default:

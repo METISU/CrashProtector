@@ -14,25 +14,21 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self startCrashProtector];
+        Class __NSPlaceholderArray = objc_getClass("__NSPlaceholderArray");
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSPlaceholderArray originalSel:@selector(initWithObjects:count:) swizzledSel:@selector(crashProtector_initWithObjects:count:)];
+        
+        Class __NSSingleObjectArrayI = objc_getClass("__NSSingleObjectArrayI");
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSSingleObjectArrayI originalSel:@selector(objectAtIndex:) swizzledSel:@selector(crashProtector_objectAtIndex:)];
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSSingleObjectArrayI originalSel:@selector(getObjects:range:) swizzledSel:@selector(crashProtectorI_getObjects:range:)];
+        
+        Class __NSArrayI = objc_getClass("__NSArrayI");
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayI originalSel:@selector(objectAtIndexedSubscript:) swizzledSel:@selector(crashProtector_objectAtIndexedSubscript:)];
+        
+        Class __NSArray = objc_getClass("NSArray");
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSArray originalSel:@selector(objectsAtIndexes:) swizzledSel:@selector(crashProtector_objectsAtIndexes:)];
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSArray originalSel:@selector(getObjects:) swizzledSel:@selector(crashProtector_getObjects:)];
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSArray originalSel:@selector(getObjects:range:) swizzledSel:@selector(crashProtector_getObjects:range:)];
     });
-}
-
-+ (void)startCrashProtector {
-    Class __NSPlaceholderArray = objc_getClass("__NSPlaceholderArray");
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSPlaceholderArray originalSel:@selector(initWithObjects:count:) swizzledSel:@selector(crashProtector_initWithObjects:count:)];
-    
-    Class __NSSingleObjectArrayI = objc_getClass("__NSSingleObjectArrayI");
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSSingleObjectArrayI originalSel:@selector(objectAtIndex:) swizzledSel:@selector(crashProtector_objectAtIndex:)];
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSSingleObjectArrayI originalSel:@selector(getObjects:range:) swizzledSel:@selector(crashProtectorI_getObjects:range:)];
-    
-    Class __NSArrayI = objc_getClass("__NSArrayI");
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayI originalSel:@selector(objectAtIndexedSubscript:) swizzledSel:@selector(crashProtector_objectAtIndexedSubscript:)];
-    
-    Class __NSArray = objc_getClass("NSArray");
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSArray originalSel:@selector(objectsAtIndexes:) swizzledSel:@selector(crashProtector_objectsAtIndexes:)];
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSArray originalSel:@selector(getObjects:) swizzledSel:@selector(crashProtector_getObjects:)];
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSArray originalSel:@selector(getObjects:range:) swizzledSel:@selector(crashProtector_getObjects:range:)];
 }
 
 #pragma mark - __NSPlaceholderArray

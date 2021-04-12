@@ -14,21 +14,17 @@
 + (void)load {
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
-        [self startCrashProtector];
+        Class __NSArrayM = objc_getClass("__NSArrayM");
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayM originalSel:@selector(insertObject:atIndex:) swizzledSel:@selector(crashProtector_insertObject:atIndex:)];
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayM originalSel:@selector(removeObjectsInRange:) swizzledSel:@selector(crashProtector_removeObjectsInRange:)];
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayM originalSel:@selector(objectAtIndexedSubscript:) swizzledSel:@selector(crashProtector_objectAtIndexedSubscript:)];
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayM originalSel:@selector(objectAtIndex:) swizzledSel:@selector(crashProtector_objectAtIndex:)];
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayM originalSel:@selector(setObject:atIndexedSubscript:) swizzledSel:@selector(crashProtetor_setObject:atIndexedSubscript:)];
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayM originalSel:@selector(getObjects:range:) swizzledSel:@selector(crashProtector_getObjects:range:)];
+        
+        Class __NSMutableArray = objc_getClass("NSMutableArray");
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSMutableArray originalSel:@selector(removeObject:inRange:) swizzledSel:@selector(crashProtector_removeObject:inRange:)];
     });
-}
-
-+ (void)startCrashProtector {
-    Class __NSArrayM = objc_getClass("__NSArrayM");
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayM originalSel:@selector(insertObject:atIndex:) swizzledSel:@selector(crashProtector_insertObject:atIndex:)];
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayM originalSel:@selector(removeObjectsInRange:) swizzledSel:@selector(crashProtector_removeObjectsInRange:)];
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayM originalSel:@selector(objectAtIndexedSubscript:) swizzledSel:@selector(crashProtector_objectAtIndexedSubscript:)];
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayM originalSel:@selector(objectAtIndex:) swizzledSel:@selector(crashProtector_objectAtIndex:)];
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayM originalSel:@selector(setObject:atIndexedSubscript:) swizzledSel:@selector(crashProtetor_setObject:atIndexedSubscript:)];
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSArrayM originalSel:@selector(getObjects:range:) swizzledSel:@selector(crashProtector_getObjects:range:)];
-    
-    Class __NSMutableArray = objc_getClass("NSMutableArray");
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSMutableArray originalSel:@selector(removeObject:inRange:) swizzledSel:@selector(crashProtector_removeObject:inRange:)];
 }
 
 #pragma mark - __NSArrayM
