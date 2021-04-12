@@ -1,16 +1,27 @@
 PODS:
-  - CrashProtocol (0.1.0)
+  - CrashProtector (0.1.0)
+  - FBSnapshotTestCase (2.1.4):
+    - FBSnapshotTestCase/SwiftSupport (= 2.1.4)
+  - FBSnapshotTestCase/Core (2.1.4)
+  - FBSnapshotTestCase/SwiftSupport (2.1.4):
+    - FBSnapshotTestCase/Core
 
 DEPENDENCIES:
-  - CrashProtocol (from `../`)
+  - CrashProtector (from `../`)
+  - FBSnapshotTestCase
+
+SPEC REPOS:
+  trunk:
+    - FBSnapshotTestCase
 
 EXTERNAL SOURCES:
-  CrashProtocol:
+  CrashProtector:
     :path: "../"
 
 SPEC CHECKSUMS:
-  CrashProtocol: ac0c828e236db4a523806f098d3ed3196bdbf0cf
+  CrashProtector: ae5f23417ec77a1449b5eb3856cc0c462d97a8f2
+  FBSnapshotTestCase: 094f9f314decbabe373b87cc339bea235a63e07a
 
-PODFILE CHECKSUM: 827ebde371946b6ec7f6efadaf24140276f4f10a
+PODFILE CHECKSUM: 8a6b0b965fcb6ba5ee3dffb37a1c577f2427cab2
 
 COCOAPODS: 1.9.3

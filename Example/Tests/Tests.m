@@ -1,9 +1,9 @@
 //
-//  CrashProtocolTests.m
-//  CrashProtocolTests
+//  CrashProtectorTests.m
+//  CrashProtectorTests
 //
-//  Created by MacBook on 04/07/2021.
-//  Copyright (c) 2021 MacBook. All rights reserved.
+//  Created by METISU on 04/11/2021.
+//  Copyright (c) 2021 METISU. All rights reserved.
 //
 
 @import XCTest;

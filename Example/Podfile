@@ -2,12 +2,12 @@ use_frameworks!
 
 platform :ios, '9.0'
 
-target 'CrashProtocol_Example' do
-  pod 'CrashProtocol', :path => '../'
+target 'CrashProtector_Example' do
+  pod 'CrashProtector', :path => '../'
 
-  target 'CrashProtocol_Tests' do
+  target 'CrashProtector_Tests' do
     inherit! :search_paths
 
-    
+    pod 'FBSnapshotTestCase'
   end
 end
