@@ -21,7 +21,8 @@ typedef enum : NSInteger {
     NSStringCrashType,
     NSMutableStringCrashType,
     NSAttributedStringCrashType,
-    NSMutableAttributedStringCrashType
+    NSMutableAttributedStringCrashType,
+    NSSetCrashType
 } CrashType;
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -48,7 +49,8 @@ typedef enum : NSInteger {
                        @(NSStringCrashType),
                        @(NSMutableStringCrashType),
                        @(NSAttributedStringCrashType),
-                       @(NSMutableAttributedStringCrashType)];
+                       @(NSMutableAttributedStringCrashType),
+                       @(NSSetCrashType)];
     self.typeDic = @{@(InsertNilInArrayCrashType) : @"Insert Nil In Array",
                      @(OutOfRangeInArrayCrashType):@"index 2 beyond bounds [0 .. 0]",
                      @(OutOfRangesInArrayCrashType):@"index 2 in index set beyond bounds [0 .. 0]",
@@ -61,7 +63,8 @@ typedef enum : NSInteger {
                      @(NSStringCrashType):@"NSStringCrashType",
                      @(NSMutableStringCrashType):@"NSMutableStringCrashType",
                      @(NSAttributedStringCrashType):@"NSAttributedStringCrashType",
-                     @(NSMutableAttributedStringCrashType):@"NSMutableAttributedStringCrashType"};
+                     @(NSMutableAttributedStringCrashType):@"NSMutableAttributedStringCrashType",
+                     @(NSSetCrashType):@"NSSetCrashType"};
     [self.view addSubview:self.demoTableView];
 }
 
@@ -211,6 +214,14 @@ typedef enum : NSInteger {
             mutableAttributeString = [[NSMutableAttributedString alloc] initWithString:nilStr attributes:nil];
             mutableAttributeString = [[NSMutableAttributedString alloc] initWithAttributedString:nilAttributedStr];
             NSLog(@"%@", mutableAttributeString);
+        }
+            break;
+        case NSSetCrashType:
+        {
+            id _Nonnull newInstance[1];
+            newInstance[0] = @1;
+            NSSet *set = [[NSSet alloc] initWithObjects:newInstance count:2];
+            NSLog(@"%@", set);
         }
             break;
         default:

@@ -12,11 +12,14 @@
 
 #import "CrashProtector.h"
 #import "NSArray+CrashProtector.h"
+#import "NSAttributedString+CrashProtector.h"
 #import "NSDictionary+CrashProtector.h"
 #import "NSMutableArray+CrashProtector.h"
+#import "NSMutableAttributedString+CrashProtector.h"
 #import "NSMutableDictionary+CrashProtector.h"
 #import "NSMutableString+CrashProtector.h"
 #import "NSObject+CrashProtector.h"
+#import "NSSet+CrashProtector.h"
 #import "NSString+CrashProtector.h"
 
 FOUNDATION_EXPORT double CrashProtectorVersionNumber;
