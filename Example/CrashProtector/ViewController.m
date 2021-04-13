@@ -19,7 +19,8 @@ typedef enum : NSInteger {
     NSPlaceholderDictionaryCrashType,
     SetObjectForKeyedSubscriptType,
     NSStringCrashType,
-    NSMutableStringCrashType
+    NSMutableStringCrashType,
+    NSAttributedStringCrashType
 } CrashType;
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -44,7 +45,8 @@ typedef enum : NSInteger {
                        @(NSPlaceholderDictionaryCrashType),
                        @(SetObjectForKeyedSubscriptType),
                        @(NSStringCrashType),
-                       @(NSMutableStringCrashType)];
+                       @(NSMutableStringCrashType),
+                       @(NSAttributedStringCrashType)];
     self.typeDic = @{@(InsertNilInArrayCrashType) : @"Insert Nil In Array",
                      @(OutOfRangeInArrayCrashType):@"index 2 beyond bounds [0 .. 0]",
                      @(OutOfRangesInArrayCrashType):@"index 2 in index set beyond bounds [0 .. 0]",
@@ -55,7 +57,8 @@ typedef enum : NSInteger {
                      @(NSPlaceholderDictionaryCrashType):@"[__NSPlaceholderDictionary initWithObjects:forKeys:count:]",
                      @(SetObjectForKeyedSubscriptType):@"key cannot be nil",
                      @(NSStringCrashType):@"NSStringCrashType",
-                     @(NSMutableStringCrashType):@"NSMutableStringCrashType"};
+                     @(NSMutableStringCrashType):@"NSMutableStringCrashType",
+                     @(NSAttributedStringCrashType):@"NSAttributedStringCrashType"};
     [self.view addSubview:self.demoTableView];
 }
 
@@ -187,6 +190,15 @@ typedef enum : NSInteger {
                   [mutableStr substringWithRange:NSMakeRange(2, 2)],
                   [mutableStr stringByReplacingOccurrencesOfString:nilStr withString:nilStr],
                   [mutableStr stringByReplacingCharactersInRange:NSMakeRange(2, 2) withString:nilStr]);
+        }
+            break;
+        case NSAttributedStringCrashType:
+        {
+            NSString *nilStr = nil; NSAttributedString *nilAttributedString = nil;
+            NSAttributedString *attributedStr = [[NSAttributedString alloc] initWithString:nilStr];
+            attributedStr = [[NSAttributedString alloc] initWithString:nilStr attributes:nil];
+            attributedStr = [[NSAttributedString alloc] initWithAttributedString:nilAttributedString];
+            NSLog(@"%@", attributedStr);
         }
             break;
         default:
