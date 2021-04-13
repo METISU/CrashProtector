@@ -15,6 +15,7 @@
 #import "NSDictionary+CrashProtector.h"
 #import "NSMutableArray+CrashProtector.h"
 #import "NSMutableDictionary+CrashProtector.h"
+#import "NSMutableString+CrashProtector.h"
 #import "NSObject+CrashProtector.h"
 #import "NSString+CrashProtector.h"
 

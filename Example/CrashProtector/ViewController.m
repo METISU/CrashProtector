@@ -18,7 +18,8 @@ typedef enum : NSInteger {
     RemoveObjectInRangeCrashType,
     NSPlaceholderDictionaryCrashType,
     SetObjectForKeyedSubscriptType,
-    NSStringCrashType
+    NSStringCrashType,
+    NSMutableStringCrashType
 } CrashType;
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -42,7 +43,8 @@ typedef enum : NSInteger {
                        @(RemoveObjectInRangeCrashType),
                        @(NSPlaceholderDictionaryCrashType),
                        @(SetObjectForKeyedSubscriptType),
-                       @(NSStringCrashType)];
+                       @(NSStringCrashType),
+                       @(NSMutableStringCrashType)];
     self.typeDic = @{@(InsertNilInArrayCrashType) : @"Insert Nil In Array",
                      @(OutOfRangeInArrayCrashType):@"index 2 beyond bounds [0 .. 0]",
                      @(OutOfRangesInArrayCrashType):@"index 2 in index set beyond bounds [0 .. 0]",
@@ -52,7 +54,8 @@ typedef enum : NSInteger {
                      @(RemoveObjectInRangeCrashType):@"extends beyond bounds for empty array",
                      @(NSPlaceholderDictionaryCrashType):@"[__NSPlaceholderDictionary initWithObjects:forKeys:count:]",
                      @(SetObjectForKeyedSubscriptType):@"key cannot be nil",
-                     @(NSStringCrashType):@"NSStringCrashType"};
+                     @(NSStringCrashType):@"NSStringCrashType",
+                     @(NSMutableStringCrashType):@"NSMutableStringCrashType"};
     [self.view addSubview:self.demoTableView];
 }
 
@@ -161,8 +164,29 @@ typedef enum : NSInteger {
             break;
         case NSStringCrashType:
         {
-            NSString *str = @"abcdef"; NSString *nilStr = nil;
-            NSLog(@"%c %@ %@ %@ %@ %@", [str characterAtIndex:2], [str substringToIndex:2], [str substringFromIndex:2], [str substringWithRange:NSMakeRange(2, 2)], [str stringByReplacingOccurrencesOfString:nilStr withString:nilStr],[str stringByReplacingCharactersInRange:NSMakeRange(2, 2) withString:nilStr]);
+            NSString *str = @"1"; NSString *nilStr = nil;
+            NSLog(@"%c %@ %@ %@ %@ %@",
+                  [str characterAtIndex:2],
+                  [str substringToIndex:2],
+                  [str substringFromIndex:2],
+                  [str substringWithRange:NSMakeRange(2, 2)],
+                  [str stringByReplacingOccurrencesOfString:nilStr withString:nilStr],
+                  [str stringByReplacingCharactersInRange:NSMakeRange(2, 2) withString:nilStr]);
+        }
+            break;
+        case NSMutableStringCrashType:
+        {
+            NSMutableString *mutableStr = [@"1" mutableCopy]; NSString *nilStr = nil;
+            [mutableStr replaceCharactersInRange:NSMakeRange(2, 2) withString:@"1"];
+            [mutableStr insertString:@"123" atIndex:2];
+            [mutableStr deleteCharactersInRange:NSMakeRange(2, 2)];
+            NSLog(@"%c %@ %@ %@ %@ %@",
+                  [mutableStr characterAtIndex:2],
+                  [mutableStr substringToIndex:2],
+                  [mutableStr substringFromIndex:2],
+                  [mutableStr substringWithRange:NSMakeRange(2, 2)],
+                  [mutableStr stringByReplacingOccurrencesOfString:nilStr withString:nilStr],
+                  [mutableStr stringByReplacingCharactersInRange:NSMakeRange(2, 2) withString:nilStr]);
         }
             break;
         default:

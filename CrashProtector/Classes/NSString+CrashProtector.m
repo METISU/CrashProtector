@@ -15,7 +15,7 @@
     static dispatch_once_t onceToken;
     
     dispatch_once(&onceToken, ^{
-        Class __NSCFConstantString = objc_getClass("__NSCFConstantString");
+        Class __NSCFConstantString = objc_getClass("__NSCFString");
         [self crashProtector_swizzleInstanceMethodWithAClass:__NSCFConstantString originalSel:@selector(characterAtIndex:) swizzledSel:@selector(crashProtector_characterAtIndex:)];
         [self crashProtector_swizzleInstanceMethodWithAClass:__NSCFConstantString originalSel:@selector(substringToIndex:) swizzledSel:@selector(crashProtector_substringToIndex:)];
         [self crashProtector_swizzleInstanceMethodWithAClass:__NSCFConstantString originalSel:@selector(substringFromIndex:) swizzledSel:@selector(crashProtector_substringFromIndex:)];
@@ -25,7 +25,7 @@
     });
 }
 
-#pragma mark - __NSCFConstantString
+#pragma mark - __NSCFString
 - (unichar)crashProtector_characterAtIndex:(NSUInteger)index {
     unichar c;
     
