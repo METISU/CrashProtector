@@ -1,5 +1,5 @@
 //
-//  NSAttributedString+CrashProtector.h
+//  NSMutableAttributedString+CrashProtector.h
 //  CrashProtector
 //
 //  Created by Mac on 2021/4/13.
@@ -9,7 +9,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface NSAttributedString (CrashProtector)
+@interface NSMutableAttributedString (CrashProtector)
 
 @end
 

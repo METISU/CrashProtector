@@ -2,7 +2,7 @@
 //  NSAttributedString+CrashProtector.m
 //  CrashProtector
 //
-//  Created by zhengjie on 2021/4/13.
+//  Created by Mac on 2021/4/13.
 //
 
 #import "NSAttributedString+CrashProtector.h"

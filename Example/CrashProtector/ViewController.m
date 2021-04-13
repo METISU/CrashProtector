@@ -20,7 +20,8 @@ typedef enum : NSInteger {
     SetObjectForKeyedSubscriptType,
     NSStringCrashType,
     NSMutableStringCrashType,
-    NSAttributedStringCrashType
+    NSAttributedStringCrashType,
+    NSMutableAttributedStringCrashType
 } CrashType;
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -46,7 +47,8 @@ typedef enum : NSInteger {
                        @(SetObjectForKeyedSubscriptType),
                        @(NSStringCrashType),
                        @(NSMutableStringCrashType),
-                       @(NSAttributedStringCrashType)];
+                       @(NSAttributedStringCrashType),
+                       @(NSMutableAttributedStringCrashType)];
     self.typeDic = @{@(InsertNilInArrayCrashType) : @"Insert Nil In Array",
                      @(OutOfRangeInArrayCrashType):@"index 2 beyond bounds [0 .. 0]",
                      @(OutOfRangesInArrayCrashType):@"index 2 in index set beyond bounds [0 .. 0]",
@@ -58,7 +60,8 @@ typedef enum : NSInteger {
                      @(SetObjectForKeyedSubscriptType):@"key cannot be nil",
                      @(NSStringCrashType):@"NSStringCrashType",
                      @(NSMutableStringCrashType):@"NSMutableStringCrashType",
-                     @(NSAttributedStringCrashType):@"NSAttributedStringCrashType"};
+                     @(NSAttributedStringCrashType):@"NSAttributedStringCrashType",
+                     @(NSMutableAttributedStringCrashType):@"NSMutableAttributedStringCrashType"};
     [self.view addSubview:self.demoTableView];
 }
 
@@ -199,6 +202,15 @@ typedef enum : NSInteger {
             attributedStr = [[NSAttributedString alloc] initWithString:nilStr attributes:nil];
             attributedStr = [[NSAttributedString alloc] initWithAttributedString:nilAttributedString];
             NSLog(@"%@", attributedStr);
+        }
+            break;
+        case NSMutableAttributedStringCrashType:
+        {
+            NSString *nilStr = nil; NSAttributedString *nilAttributedStr = nil;
+            NSMutableAttributedString *mutableAttributeString = [[NSMutableAttributedString alloc] initWithString:nilStr];
+            mutableAttributeString = [[NSMutableAttributedString alloc] initWithString:nilStr attributes:nil];
+            mutableAttributeString = [[NSMutableAttributedString alloc] initWithAttributedString:nilAttributedStr];
+            NSLog(@"%@", mutableAttributeString);
         }
             break;
         default:
