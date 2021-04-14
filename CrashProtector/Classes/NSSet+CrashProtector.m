@@ -20,6 +20,7 @@
     });
 }
 
+#pragma mark - __NSPlaceholderSet
 - (instancetype)crashProtector_initWithObjects:(id  _Nonnull const [])objects count:(NSUInteger)cnt {
     id instance;
     
