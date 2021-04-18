@@ -8,6 +8,8 @@
 
 #import "ViewController.h"
 #import "KVOProxy.h"
+#import "NSTimerViewController.h"
+#import "BadAccessObject.h"
 
 typedef enum : NSInteger {
     InsertNilInArrayCrashType = 0,
@@ -25,13 +27,16 @@ typedef enum : NSInteger {
     NSMutableAttributedStringCrashType,
     NSSetCrashType,
     UnrecognizedSelectorCrashType,
-    KVOCrashType
+    KVOCrashType,
+    NSTimerCrashType,
+    BadAccessCrashType
 } CrashType;
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
 @property (nonatomic, copy) NSArray *typeArray;
 @property (nonatomic, copy) NSDictionary *typeDic;
 @property (nonatomic, strong) UITableView *demoTableView;
+@property (nonatomic, assign) BadAccessObject *badAccessObject;
 @end
 
 @implementation ViewController
@@ -55,7 +60,9 @@ typedef enum : NSInteger {
                        @(NSMutableAttributedStringCrashType),
                        @(NSSetCrashType),
                        @(UnrecognizedSelectorCrashType),
-                       @(KVOCrashType)];
+                       @(KVOCrashType),
+                       @(NSTimerCrashType),
+                       @(BadAccessCrashType)];
     self.typeDic = @{@(InsertNilInArrayCrashType) : @"Insert Nil In Array",
                      @(OutOfRangeInArrayCrashType):@"index 2 beyond bounds [0 .. 0]",
                      @(OutOfRangesInArrayCrashType):@"index 2 in index set beyond bounds [0 .. 0]",
@@ -71,7 +78,9 @@ typedef enum : NSInteger {
                      @(NSMutableAttributedStringCrashType):@"NSMutableAttributedStringCrashType",
                      @(NSSetCrashType):@"NSSetCrashType",
                      @(UnrecognizedSelectorCrashType):@"UnrecognizedSelectorCrashType",
-                     @(KVOCrashType):@"KVOCrashType"};
+                     @(KVOCrashType):@"KVOCrashType",
+                     @(NSTimerCrashType):@"NSTimerCrashType",
+                     @(BadAccessCrashType):@"BadAccessCrashType"};
     [self.view addSubview:self.demoTableView];
 }
 
@@ -243,8 +252,19 @@ typedef enum : NSInteger {
         case KVOCrashType:
         {
             KVOProxy *proxy = KVOProxy.new;
-//            proxy.ctr.view.tag = 2;
-//            [proxy.ctr removeObserver:proxy forKeyPath:@"view.tag"];
+            NSLog(@"%@", proxy);
+        }
+            break;
+        case NSTimerCrashType:
+        {
+            NSTimerViewController *ctr = NSTimerViewController.new;
+            [self.navigationController pushViewController:ctr animated:YES];
+        }
+            break;
+        case BadAccessCrashType:
+        {
+            self.badAccessObject = BadAccessObject.new;
+            [self.badAccessObject log];
         }
             break;
         default:

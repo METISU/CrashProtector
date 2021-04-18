@@ -21,6 +21,7 @@
 #import "NSObject+CrashProtector.h"
 #import "NSSet+CrashProtector.h"
 #import "NSString+CrashProtector.h"
+#import "NSTimer+CrashProtector.h"
 
 FOUNDATION_EXPORT double CrashProtectorVersionNumber;
 FOUNDATION_EXPORT const unsigned char CrashProtectorVersionString[];

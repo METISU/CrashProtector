@@ -19,8 +19,8 @@
         [self.ctr addObserver:self forKeyPath:@"view.tag" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
         self.ctr.view.tag = 2;
         self.ctr.view.tag = 2;
-//        [self.ctr removeObserver:self forKeyPath:@"view.tag"];
-//        [self.ctr removeObserver:self forKeyPath:@"view.tag"];
+        [self.ctr removeObserver:self forKeyPath:@"view.tag"];
+        [self.ctr removeObserver:self forKeyPath:@"view.tag"];
     }
     return self;
 }

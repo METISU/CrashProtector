@@ -7,6 +7,7 @@
 
 #import "NSObject+CrashProtector.h"
 #import "CrashProtector.h"
+#import "CrashProtectorZoombie.h"
 #import <objc/runtime.h>
 
 @interface CrashProtector_KVOProxy : NSObject
@@ -212,9 +213,11 @@ static inline BOOL isSystemClass(Class cls) {
                 }
             }
         }
+        [[CrashProtectorZoombie sharedInstance] handleDeallocObject:self];
+        
+    } else {
+        [self crashProtector_dealloc];
     }
-    
-    [self crashProtector_dealloc];
 }
 
 @end

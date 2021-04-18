@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		3F4A5F65262ACCC200967C9B /* KVOProxy.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4A5F64262ACCC200967C9B /* KVOProxy.m */; };
+		3F4A5F7A262C21A800967C9B /* NSTimerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4A5F79262C21A800967C9B /* NSTimerViewController.m */; };
+		3F4A5F90262C8BC300967C9B /* BadAccessObject.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F4A5F8F262C8BC300967C9B /* BadAccessObject.m */; };
 		3FDC34E326233A24008268A0 /* CrashProtector+Deal.m in Sources */ = {isa = PBXBuildFile; fileRef = 3FDC34E226233A24008268A0 /* CrashProtector+Deal.m */; };
 		6003F58E195388D20070C39A /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58D195388D20070C39A /* Foundation.framework */; };
 		6003F590195388D20070C39A /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6003F58F195388D20070C39A /* CoreGraphics.framework */; };
@@ -43,6 +45,10 @@
 		2580361193A5B389F4300DC9 /* Pods_CrashProtector_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_CrashProtector_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F4A5F63262ACCC200967C9B /* KVOProxy.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = KVOProxy.h; sourceTree = "<group>"; };
 		3F4A5F64262ACCC200967C9B /* KVOProxy.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = KVOProxy.m; sourceTree = "<group>"; };
+		3F4A5F78262C21A800967C9B /* NSTimerViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = NSTimerViewController.h; sourceTree = "<group>"; };
+		3F4A5F79262C21A800967C9B /* NSTimerViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NSTimerViewController.m; sourceTree = "<group>"; };
+		3F4A5F8E262C8BC300967C9B /* BadAccessObject.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = BadAccessObject.h; sourceTree = "<group>"; };
+		3F4A5F8F262C8BC300967C9B /* BadAccessObject.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BadAccessObject.m; sourceTree = "<group>"; };
 		3FDC34E126233A24008268A0 /* CrashProtector+Deal.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "CrashProtector+Deal.h"; sourceTree = "<group>"; };
 		3FDC34E226233A24008268A0 /* CrashProtector+Deal.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "CrashProtector+Deal.m"; sourceTree = "<group>"; };
 		49072095D4AE8F25FC5D2976 /* Pods-CrashProtector_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CrashProtector_Example.debug.xcconfig"; path = "Target Support Files/Pods-CrashProtector_Example/Pods-CrashProtector_Example.debug.xcconfig"; sourceTree = "<group>"; };
@@ -145,11 +151,15 @@
 				6003F5A6195388D20070C39A /* ViewController.m */,
 				3F4A5F63262ACCC200967C9B /* KVOProxy.h */,
 				3F4A5F64262ACCC200967C9B /* KVOProxy.m */,
+				3FDC34E126233A24008268A0 /* CrashProtector+Deal.h */,
+				3FDC34E226233A24008268A0 /* CrashProtector+Deal.m */,
+				3F4A5F78262C21A800967C9B /* NSTimerViewController.h */,
+				3F4A5F79262C21A800967C9B /* NSTimerViewController.m */,
 				71719F9D1E33DC2100824A3D /* LaunchScreen.storyboard */,
 				6003F5A8195388D20070C39A /* Images.xcassets */,
 				6003F594195388D20070C39A /* Supporting Files */,
-				3FDC34E126233A24008268A0 /* CrashProtector+Deal.h */,
-				3FDC34E226233A24008268A0 /* CrashProtector+Deal.m */,
+				3F4A5F8E262C8BC300967C9B /* BadAccessObject.h */,
+				3F4A5F8F262C8BC300967C9B /* BadAccessObject.m */,
 			);
 			name = "Example for CrashProtector";
 			path = CrashProtector;
@@ -394,7 +404,9 @@
 			files = (
 				3FDC34E326233A24008268A0 /* CrashProtector+Deal.m in Sources */,
 				6003F59E195388D20070C39A /* AppDelegate.m in Sources */,
+				3F4A5F90262C8BC300967C9B /* BadAccessObject.m in Sources */,
 				3F4A5F65262ACCC200967C9B /* KVOProxy.m in Sources */,
+				3F4A5F7A262C21A800967C9B /* NSTimerViewController.m in Sources */,
 				6003F5A7195388D20070C39A /* ViewController.m in Sources */,
 				6003F59A195388D20070C39A /* main.m in Sources */,
 			);
