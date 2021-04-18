@@ -2,7 +2,7 @@
 //  NSArray+CrashProtector.h
 //  CrashProtector
 //
-//  Created by Mac on 2021/4/11.
+//  Created by METISU on 2021/4/11.
 //
 
 #import <Foundation/Foundation.h>

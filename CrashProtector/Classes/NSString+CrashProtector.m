@@ -2,7 +2,7 @@
 //  NSString+CrashProtector.m
 //  CrashProtector
 //
-//  Created by Mac on 2021/4/12.
+//  Created by METISU on 2021/4/12.
 //
 
 #import "NSString+CrashProtector.h"

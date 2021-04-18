@@ -7,6 +7,7 @@
 //
 
 #import "ViewController.h"
+#import "KVOProxy.h"
 
 typedef enum : NSInteger {
     InsertNilInArrayCrashType = 0,
@@ -23,7 +24,8 @@ typedef enum : NSInteger {
     NSAttributedStringCrashType,
     NSMutableAttributedStringCrashType,
     NSSetCrashType,
-    NSObjectCrashType
+    UnrecognizedSelectorCrashType,
+    KVOCrashType
 } CrashType;
 
 @interface ViewController () <UITableViewDelegate, UITableViewDataSource>
@@ -52,7 +54,8 @@ typedef enum : NSInteger {
                        @(NSAttributedStringCrashType),
                        @(NSMutableAttributedStringCrashType),
                        @(NSSetCrashType),
-                       @(NSObjectCrashType)];
+                       @(UnrecognizedSelectorCrashType),
+                       @(KVOCrashType)];
     self.typeDic = @{@(InsertNilInArrayCrashType) : @"Insert Nil In Array",
                      @(OutOfRangeInArrayCrashType):@"index 2 beyond bounds [0 .. 0]",
                      @(OutOfRangesInArrayCrashType):@"index 2 in index set beyond bounds [0 .. 0]",
@@ -67,7 +70,8 @@ typedef enum : NSInteger {
                      @(NSAttributedStringCrashType):@"NSAttributedStringCrashType",
                      @(NSMutableAttributedStringCrashType):@"NSMutableAttributedStringCrashType",
                      @(NSSetCrashType):@"NSSetCrashType",
-                     @(NSObjectCrashType):@"NSObjectCrashType"};
+                     @(UnrecognizedSelectorCrashType):@"UnrecognizedSelectorCrashType",
+                     @(KVOCrashType):@"KVOCrashType"};
     [self.view addSubview:self.demoTableView];
 }
 
@@ -227,13 +231,20 @@ typedef enum : NSInteger {
             NSLog(@"%@", set);
         }
             break;
-        case NSObjectCrashType:
+        case UnrecognizedSelectorCrashType:
         {
             NSObject *object = NSObject.new;
 //            [object setValue:@2 forKey:@"123"];
 //            [object setValue:@2 forKeyPath:@"123"];
             [object performSelector:@selector(hello:e:)];
-//            NSLog(@"%@", object);
+            NSLog(@"%@", object);
+        }
+            break;
+        case KVOCrashType:
+        {
+            KVOProxy *proxy = KVOProxy.new;
+//            proxy.ctr.view.tag = 2;
+//            [proxy.ctr removeObserver:proxy forKeyPath:@"view.tag"];
         }
             break;
         default:

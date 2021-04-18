@@ -2,7 +2,7 @@
 //  NSAttributedString+CrashProtector.h
 //  CrashProtector
 //
-//  Created by Mac on 2021/4/13.
+//  Created by METISU on 2021/4/13.
 //
 
 #import <Foundation/Foundation.h>
