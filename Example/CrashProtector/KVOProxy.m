@@ -16,16 +16,16 @@
         self.ctr = ViewController.new;
         self.ctr2 = ViewController.new;
         [self.ctr addObserver:self forKeyPath:@"view.tag" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
-        [self.ctr addObserver:self forKeyPath:@"view.tag" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
+//        [self.ctr addObserver:self forKeyPath:@"view.tag" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionOld context:nil];
         self.ctr.view.tag = 2;
         self.ctr.view.tag = 2;
-        [self.ctr removeObserver:self forKeyPath:@"view.tag"];
-        [self.ctr removeObserver:self forKeyPath:@"view.tag"];
+//        [self.ctr removeObserver:self forKeyPath:@"view.tag"];
+//        [self.ctr removeObserver:self forKeyPath:@"view.tag"];
     }
     return self;
 }
 
-- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
-    NSLog(@"%@", context);
-}
+//- (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+//    NSLog(@"%@", context);
+//}
 @end

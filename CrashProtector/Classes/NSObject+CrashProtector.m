@@ -91,16 +91,19 @@ static void *crashProtector_KVODefenderKey = &crashProtector_KVODefenderKey;
 
 @implementation NSObject (CrashProtector)
 + (void)load {
-    Class __NSObject = objc_getClass("NSObject");
-    
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSObject originalSel:@selector(setValue:forUndefinedKey:) swizzledSel:@selector(crashProtector_setValue:forUndefinedKey:)];
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSObject originalSel:@selector(methodSignatureForSelector:) swizzledSel:@selector(crashProtector_methodSignatureForSelector:)];
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSObject originalSel:@selector(forwardInvocation:) swizzledSel:@selector(crashProtector_forwardInvocation:)];
-    
-    // KVO
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSObject originalSel:@selector(addObserver:forKeyPath:options:context:) swizzledSel:@selector(crashProtector_addObserver:forKeyPath:options:context:)];
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSObject originalSel:@selector(removeObserver:forKeyPath:) swizzledSel:@selector(crashProtector_removeObserver:forKeyPath:)];
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSObject originalSel:NSSelectorFromString(@"dealloc") swizzledSel:@selector(crashProtector_dealloc)];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class __NSObject = objc_getClass("NSObject");
+        
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSObject originalSel:@selector(setValue:forUndefinedKey:) swizzledSel:@selector(crashProtector_setValue:forUndefinedKey:)];
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSObject originalSel:@selector(methodSignatureForSelector:) swizzledSel:@selector(crashProtector_methodSignatureForSelector:)];
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSObject originalSel:@selector(forwardInvocation:) swizzledSel:@selector(crashProtector_forwardInvocation:)];
+        
+        // KVO
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSObject originalSel:@selector(addObserver:forKeyPath:options:context:) swizzledSel:@selector(crashProtector_addObserver:forKeyPath:options:context:)];
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSObject originalSel:@selector(removeObserver:forKeyPath:) swizzledSel:@selector(crashProtector_removeObserver:forKeyPath:)];
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSObject originalSel:NSSelectorFromString(@"dealloc") swizzledSel:@selector(crashProtector_dealloc)];
+    });
 }
 
 static inline BOOL isSystemClass(Class cls) {
@@ -177,12 +180,8 @@ static inline BOOL isSystemClass(Class cls) {
 #pragma mark - KVO
 - (void)crashProtector_addObserver:(NSObject *)observer forKeyPath:(NSString *)keyPath options:(NSKeyValueObservingOptions)options context:(void *)context {
     @try {
-        if (!isSystemClass(self.class)) {
-            objc_setAssociatedObject(self, crashProtector_KVODefenderKey, crashProtector_KVODefenderValue, OBJC_ASSOCIATION_RETAIN);
-            if ([self.kvoProxy addMapInfoWithObserver:observer forKeyPath:keyPath]) {
-                [self crashProtector_addObserver:self.kvoProxy forKeyPath:keyPath options:options context:context];
-            }
-        } else {
+        objc_setAssociatedObject(self, crashProtector_KVODefenderKey, crashProtector_KVODefenderValue, OBJC_ASSOCIATION_RETAIN);
+        if ([self.kvoProxy addMapInfoWithObserver:observer forKeyPath:keyPath]) {
             [self crashProtector_addObserver:self.kvoProxy forKeyPath:keyPath options:options context:context];
         }
     } @catch (NSException *exception) {
@@ -205,15 +204,13 @@ static inline BOOL isSystemClass(Class cls) {
 }
 
 - (void)crashProtector_dealloc {
-    if (!isSystemClass(self.class)) {
-        if ([(NSString *)objc_getAssociatedObject(self, crashProtector_KVODefenderKey) isEqualToString:crashProtector_KVODefenderValue]) {
-            if (self.kvoProxy.infoDic.allKeys.count > 0) {
-                for (NSString *keyPath in self.kvoProxy.infoDic.allKeys) {
-                    [self removeObserver:self.kvoProxy forKeyPath:keyPath];
-                }
+    if ([(NSString *)objc_getAssociatedObject(self, crashProtector_KVODefenderKey) isEqualToString:crashProtector_KVODefenderValue]) {
+        if (self.kvoProxy.infoDic.allKeys.count > 0) {
+            for (NSString *keyPath in self.kvoProxy.infoDic.allKeys) {
+                [self removeObserver:self.kvoProxy forKeyPath:keyPath];
             }
         }
-        [[CrashProtectorZoombie sharedInstance] handleDeallocObject:self];
+    [[CrashProtectorZoombie sharedInstance] handleDeallocObject:self];
     } else {
         [self crashProtector_dealloc];
     }
