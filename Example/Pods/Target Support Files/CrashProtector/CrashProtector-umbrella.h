@@ -11,6 +11,7 @@
 #endif
 
 #import "CrashProtector.h"
+#import "CrashProtectorZoombie.h"
 #import "NSArray+CrashProtector.h"
 #import "NSAttributedString+CrashProtector.h"
 #import "NSDictionary+CrashProtector.h"

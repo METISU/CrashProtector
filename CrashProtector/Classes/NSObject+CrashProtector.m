@@ -214,10 +214,10 @@ static inline BOOL isSystemClass(Class cls) {
             }
         }
         [[CrashProtectorZoombie sharedInstance] handleDeallocObject:self];
-        
     } else {
         [self crashProtector_dealloc];
     }
+    
 }
 
 @end
