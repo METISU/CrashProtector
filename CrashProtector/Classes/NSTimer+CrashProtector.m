@@ -47,9 +47,12 @@
 
 @implementation NSTimer (CrashProtector)
 + (void)load {
-    Class __NSTimer = object_getClass(NSTimer.class);
-    
-    [self crashProtector_swizzleInstanceMethodWithAClass:__NSTimer originalSel:@selector(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:) swizzledSel:@selector(crashProtector_scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)];
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        Class __NSTimer = object_getClass(NSTimer.class);
+        
+        [self crashProtector_swizzleInstanceMethodWithAClass:__NSTimer originalSel:@selector(scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:) swizzledSel:@selector(crashProtector_scheduledTimerWithTimeInterval:target:selector:userInfo:repeats:)];
+    });
 }
 
 + (NSTimer *)crashProtector_scheduledTimerWithTimeInterval:(NSTimeInterval)ti target:(id)aTarget selector:(SEL)aSelector userInfo:(id)userInfo repeats:(BOOL)yesOrNo {
